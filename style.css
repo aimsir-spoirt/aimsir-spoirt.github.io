@@ -1,0 +1,35 @@
+.hero {
+    /* Sizing */
+    width: 100vw;
+    height: 30vh;
+
+
+    /* Text styles */
+    text-align: center;
+
+    /* Background styles */
+    background-image: url(hero5.png);
+    background-size: cover;
+    background-position: center ;
+    background-repeat: no-repeat;
+}
+
+
+.author,.title{
+    display: none;
+}
+
+
+.hero-image {
+    position: relative;
+    margin-bottom: 2em;
+    /* liner gradient tints the image darker for readability*/
+    background-image: url(hero5.png); 
+    height: 400px;
+    background-size: cover;
+    background-color: #141c25f2;
+    background-position: center;
+    justify-content: center;
+    align-items: center;
+}
+
