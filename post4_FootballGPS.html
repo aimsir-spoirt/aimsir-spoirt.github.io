@@ -296,12 +296,13 @@ $(document).ready(function () {
 <h1><strong>5-a-side Football: GPS Analysis</strong></h1>
 <p>I am a mediocre athlete and not a particularly gifted football
 player. My style of play is generally quite defensive (as you will come
-to learn as you read), I try to compensate for my relative lack of skill
-with effort and I am a self-confessed nerd who loves data. In early 2019
-I bought a Garmin GPS watch and out of my own curiosity started using it
-to record running activities during my weekly 5-a-side games. This is an
-analysis of 5 years of GPS watch data from 144 games of 5-a-side
-football played on the same pitch.</p>
+to learn as you read) and I try to compensate for my relative lack of
+skill with effort. But what I am is a self-confessed nerd who loves
+data, even if it of questionable value. In early 2019 I bought a Garmin
+GPS watch and out of my own curiosity started using it to record running
+activities during my weekly 5-a-side games. This is an analysis of 5
+years of GPS watch data from 144 games of 5-a-side football played on
+the same pitch.</p>
 <p>These 5 years have produced some interesting results, highlighted the
 accuracy limitations of these sensors and also made me learn the
 importance of noting the direction of play (more on this later). As well
@@ -318,9 +319,14 @@ measurement of these quantities about every 2 seconds (by default, more
 on this later), with over 175,000 samples in total across the entire
 collection of games.</p>
 <center>
+<div class="figure">
 <img
 src="https://raw.githubusercontent.com/aimsir-spoirt/aimsir-spoirt.github.io/main/post4_FootballGPS_files/figure-html/GarminVivoactive.png"
-style="width:10cm" />
+style="width:10cm" alt="" />
+<p class="caption">Source: (<a
+href="https://www.garmin.com/en-GB/p/571520"
+class="uri">https://www.garmin.com/en-GB/p/571520</a>)</p>
+</div>
 </center>
 <p>Data was accessed from the GarminConnect environment using this very
 useful <a
@@ -426,7 +432,7 @@ formula. Max heart rate can either be taken from the data (giving a Z4
 HR of 157bpm), or estimated using a formula such as “Oakland nonlinear
 formula” (giving a Z4 HR of 160bpm). I have taken the highest of these
 values (160bpm) and plotted that as the dashed vertical line in the
-histogram in figure 6.</p>
+histogram in the histogram plot.</p>
 <p><img src="post4_FootballGPS_files/figure-html/hr_hist-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>I have tried to optimise time spent in those high heart rate zones,
 as this is generally viewed as being beneficial for cardiovascular
@@ -448,14 +454,14 @@ watch tightly enough during the game in the first year of using the
 watch.</p>
 <p><img src="post4_FootballGPS_files/figure-html/hr_ys_hist-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The bimodal distribution is generally most apparent during the
-non-summer months (green, left in figure 8). I do not have any expertise
-in wrist-based heart rate sensors, but I have seen some experts in the
-area talk about the limitations of this methodology. One (very
-speculative) theory is that I have poor circulation to my hands (easily
-get numb hands during cold weather) and maybe this leads to less
-accurate measurements of my heart rate. One way to investigate this
-further, might be to get a chest-strap heart rate monitor and see if
-that improved the quality of the heart rate data.</p>
+non-summer months (green, left column in panel of histograms). I do not
+have any expertise in wrist-based heart rate sensors, but I have seen
+some experts in the area talk about the limitations of this methodology.
+One (very speculative) theory is that I have poor circulation to my
+hands (easily get numb hands during cold weather) and maybe this leads
+to less accurate measurements of my heart rate. One way to investigate
+this further, might be to get a chest-strap heart rate monitor and see
+if that improved the quality of the heart rate data.</p>
 <p>Broadly speaking, I do generally meet the objective of getting my
 heart rate elevated during the games, and it does appear to be doing a
 little bit better at accumulating time above my Z4 heart-rate threshold.
