@@ -293,23 +293,24 @@ $(document).ready(function () {
 
 
 <div id="a-side-football-gps-analysis" class="section level1">
-<h1>5-a-side Football: GPS Analysis</h1>
+<h1><strong>5-a-side Football: GPS Analysis</strong></h1>
 <p>I am a mediocre athlete and not a particularly gifted football
 player. My style of play is generally quite defensive (as you will come
-to learn as you read) and I try to compensate for my relative lack of
-skill with effort. In early 2019 I bought a Garmin GPS watch and out of
-my own curiosity started using it to record running activities during my
-weekly 5-a-side games. This is an analysis of 5 years of GPS watch data
-from 144 games of 5-a-side football played on the same pitch.</p>
+to learn as you read), I try to compensate for my relative lack of skill
+with effort and I am a self-confessed nerd who loves data. In early 2019
+I bought a Garmin GPS watch and out of my own curiosity started using it
+to record running activities during my weekly 5-a-side games. This is an
+analysis of 5 years of GPS watch data from 144 games of 5-a-side
+football played on the same pitch.</p>
 <p>These 5 years have produced some interesting results, highlighted the
 accuracy limitations of these sensors and also made me learn the
 importance of noting the direction of play (more on this later). As well
 as GPS data, the watch also collected heart rate and instantaneous
 speed/pace data.</p>
 <div id="data-overview" class="section level3">
-<h3>Data Overview</h3>
+<h3><strong>Data Overview</strong></h3>
 <div id="watch" class="section level4">
-<h4>Watch</h4>
+<h4><strong>Watch</strong></h4>
 <p>The watch is a Garmin Vivoactive3, shown below. This is a smartwatch
 with built-in GPS and it lets you record the distance, pace, location
 and for outdoor activities, like running and cycling. It records a
@@ -328,7 +329,7 @@ library</a>.</p>
 </div>
 <div id="pitch-dimensions-orientation-and-accuracy"
 class="section level4">
-<h4>Pitch dimensions, orientation and accuracy</h4>
+<h4><strong>Pitch Dimensions, Orientation and Accuracy</strong></h4>
 <p>The pitch is a 5-a-side cage, with rough dimensions of 27m (length) x
 18m (width). The games are informal, “pick-up” style games, where one
 member of the group divides the group of 10 into two teams of 5 which
@@ -385,9 +386,9 @@ style="width:75.0%" /></p>
 </div>
 </div>
 <div id="results" class="section level3">
-<h3>Results</h3>
+<h3><strong>Results</strong></h3>
 <div id="total-distance" class="section level4">
-<h4>Total distance</h4>
+<h4><strong>Total Distance</strong></h4>
 <p>The average total distance (coverted into km per 60mins to account
 for varying game length) is shown below as boxplots, split by year. The
 average distance covered has not varied significantly over the 5 years,
@@ -398,7 +399,7 @@ pitch dimensions.</p>
 <p><img src="post4_FootballGPS_files/figure-html/dist_box-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="field-positions" class="section level4">
-<h4>Field Positions</h4>
+<h4><strong>Field Positions</strong></h4>
 <p>The frequency with which I occupied a given zone on the pitch is
 shown in the plot below. My defensive nature is evident in the plot with
 my tendency to occupy central defensive zones, trying to make best of
@@ -413,7 +414,7 @@ style="width:75.0%" /></p>
 </center>
 </div>
 <div id="heart-rate" class="section level4">
-<h4>Heart Rate</h4>
+<h4><strong>Heart Rate</strong></h4>
 <p>The distribution of heart rate data for the entire dataset is shown
 in the graph below. As well as being an enjoyable pastime, I also try to
 use these football games as a Zone 4/5 cardio session. There are a
@@ -462,7 +463,7 @@ Although my own confidence in the validity of these numbers is very
 low.</p>
 </div>
 <div id="running-speed" class="section level4">
-<h4>Running Speed</h4>
+<h4><strong>Running Speed</strong></h4>
 <p>Another quantity measured by the watch is pace/speed. The histogram
 of speed (in m/s) is shown in the figure below. The speeds observed are
 far from being anything impressive, but I’ll use the excuse that the
@@ -482,7 +483,7 @@ style="width:75.0%" />
 </center>
 </div>
 <div id="attempted-change-of-approach" class="section level4">
-<h4>Attempted change of approach</h4>
+<h4><strong>Attempted Change of Approach</strong></h4>
 <p>Those observations of zero speed in central areas, in the previous
 figure above, probably happen when my team has possession of the ball
 and I am sitting back in defence. This conservative style of play is not
@@ -490,10 +491,10 @@ suited to playing on such a small pitch, where playing a position
 doesn’t really make sense. In the last couple of years I have tried to
 offer myself as more of an attacking outlet. To check if there was any
 evidence of this change in mindset. To do this, I calculated positional
-heatmaps (as in <a href="#field-positions">Field Positions</a> section)
-for two different 2-year periods: 2019-2020 and 2022-2023. The
-difference between these two maps were then used to calculated
-percentage changes in my average position, shown below.</p>
+heatmaps (as in [Field Positions] section) for two different 2-year
+periods: 2019-2020 and 2022-2023. The difference between these two maps
+were then used to calculated percentage changes in my average position,
+shown below.</p>
 <center>
 <img
 src="https://raw.githubusercontent.com/aimsir-spoirt/aimsir-spoirt.github.io/main/post4_FootballGPS_files/figure-html/zone_perc_diff.png"
@@ -509,27 +510,26 @@ word with my colleagues about this…..</p>
 </div>
 </div>
 <div id="conclusions" class="section level3">
-<h3>Conclusions</h3>
+<h3><strong>Conclusions</strong></h3>
 <p>Trying to use a GPS watch to record activities on such a small
 football pitch is riddled with inaccuracies. I hoped that by collecting
 a large enough dataset from multiple years some useful information can
 be found within the noisy data. All in all I think I did find some
 interesting results, but at the same time, all results shown here should
 really be taken with a substantial pinch of salt.</p>
-<p>The <a href="#heart-rate">Heart Rate</a> data are particularly
-dubious with a clear seasonal pattern to the observations, highlighting
-the limitations of using optical wrist-based HR measurements during
-intense activity (and variables environmental conditions). These may be
-exacerbated by my own physiological profile. It might be the case that
-getting myself a chest-strap HR monitor would be useful if I want to get
-more reliable heart-rate data from my 5-a-side games, but for the moment
-that is a low priority.</p>
+<p>The [Heart Rate] data are particularly dubious with a clear seasonal
+pattern to the observations, highlighting the limitations of using
+optical wrist-based HR measurements during intense activity (and
+variables environmental conditions). These may be exacerbated by my own
+physiological profile. It might be the case that getting myself a
+chest-strap HR monitor would be useful if I want to get more reliable
+heart-rate data from my 5-a-side games, but for the moment that is a low
+priority.</p>
 <p>In terms of GPS tracks, it was reassuring to see that my desire to
 adopt a more attacking style of play in the last two years could be seen
-in the data (see <a href="#attempted-change-of-approach">Attempted
-change of approach</a>). Meanwhile for GPS accuracy, many studies have
-highlighted the limitations of GPS devices for activities with lots of
-change of direction (<a
+in the data (see [Attempted change of approach]). Meanwhile for GPS
+accuracy, many studies have highlighted the limitations of GPS devices
+for activities with lots of change of direction (<a
 href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0220729">1</a>,
 <a
 href="https://journals.sagepub.com/doi/abs/10.1177/17543371221098888">2</a>,
@@ -556,7 +556,7 @@ never be an issue. It will be interesting to see if these changes will
 offer any better insight in the years ahead.</p>
 </div>
 <div id="acknowledgments" class="section level3">
-<h3>Acknowledgments</h3>
+<h3><strong>Acknowledgments</strong></h3>
 <p>Cyberjunky’s GarminConnect python library was crucial in extracting
 the data for this analysis.</p>
 </div>
