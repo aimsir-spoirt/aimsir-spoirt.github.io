@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>5-a-side Football: GPS Analysis</title>
+
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link rel="shortcut icon" href="images/logo1.png" />
+
+
+    <link rel="stylesheet" href="style.css">
+
+    <section class="hero">
+    </section>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Aimsir Spóirt</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="https://aimsir-spoirt.github.io/">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Posts
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://aimsir-spoirt.github.io/post1_RyderCup">Ryder Cup 2021</a>
+    </li>
+    <li>
+      <a href="https://aimsir-spoirt.github.io/post2_u23Finishing">Football: Under 23 Finishing</a>
+    </li>
+    <li>
+      <a href="https://aimsir-spoirt.github.io/post3_HourRecord">Cycling: The Hour Record</a>
+    </li>
+    <li>
+      <a href="https://aimsir-spoirt.github.io/post4_FootballGPS">5-a-side Football: GPS Analysis</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">5-a-side Football: GPS Analysis</h1>
+
+</div>
+
+
+<div id="a-side-football-gps-analysis" class="section level1">
+<h1>5-a-side Football: GPS Analysis</h1>
+<p>I am a mediocre athlete and not a particularly gifted football
+player. My style of play is generally quite defensive (as you will come
+to learn as you read) and I try to compensate for my relative lack of
+skill with effort. In early 2019 I bought a Garmin GPS watch and out of
+my own curiosity started using it to record running activities during my
+weekly 5-a-side games. This is an analysis of 5 years of GPS watch data
+from 144 games of 5-a-side football played on the same pitch.</p>
+<p>These 5 years have produced some interesting results, highlighted the
+accuracy limitations of these sensors and also made me learn the
+importance of noting the direction of play (more on this later). As well
+as GPS data, the watch also collected heart rate and instantaneous
+speed/pace data.</p>
+<div id="data-overview" class="section level3">
+<h3>Data Overview</h3>
+<div id="watch" class="section level4">
+<h4>Watch</h4>
+<p>The watch is a Garmin Vivoactive3, shown below. This is a smartwatch
+with built-in GPS and it lets you record the distance, pace, location
+and for outdoor activities, like running and cycling. It records a
+measurement of these quantities about every 2 seconds (by default, more
+on this later), with over 175,000 samples in total across the entire
+collection of games.</p>
+<center>
+<img
+src="https://raw.githubusercontent.com/aimsir-spoirt/aimsir-spoirt.github.io/main/post4_FootballGPS_files/figure-html/GarminVivoactive.png"
+style="width:10cm" />
+</center>
+<p>Data was accessed from the GarminConnect environment using this very
+useful <a
+href="https://github.com/cyberjunky/python-garminconnect">python
+library</a>.</p>
+</div>
+<div id="pitch-dimensions-orientation-and-accuracy"
+class="section level4">
+<h4>Pitch dimensions, orientation and accuracy</h4>
+<p>The pitch is a 5-a-side cage, with rough dimensions of 27m (length) x
+18m (width). The games are informal, “pick-up” style games, where one
+member of the group divides the group of 10 into two teams of 5 which
+are (hopefully) fairly balanced in terms of ability.</p>
+<p>To analyse the GPS data I needed to establish the coordinates of the
+pitch as a reference. I took the coordinates of the four corners of the
+pitch in latitude and longitude. These were then converted into the
+Irish Tranverse Mercator (ITM) coordinate system, which has units in
+metres, allowing for easier arithmetic with location data. For further
+analysis of the data, the pitch was then subdivided into a grid of 54
+squares of roughly 3m x 3m in size, which is shown below. The centre of
+the pitch is shown by a red dot, which will be used later.</p>
+<center>
+<img
+src="https://raw.githubusercontent.com/aimsir-spoirt/aimsir-spoirt.github.io/main/post4_FootballGPS_files/figure-html/Pitch_Outline_UCD_cage.png"
+style="width:75.0%" />
+</center>
+<p>One thing that I realised was the importance of noting the direction
+of play in the title of the activity, as I could be playing either
+direction depending on the week. If I forgot to note down the direction,
+I had to go back to the output in the Garmin Connect webpage and try and
+work out the most likely direction of play. As it turned out, I most
+frequently played in the “right-to-left” direction, about twice as often
+as “left-to-right”, so I chose that as the primary direction to be used.
+Instead of considering the two directions in isolation, I decided to
+dust off my knowledge of Euclidean transformations and write some code
+to reflect data points through the centre point of the pitch (red dot in
+figure above). This turned every “left-to-right” game into a
+“right-to-left” game so that all games could be analysed together,
+making a total dataset of over 175,000 data points. An example of
+reflecting 11 data points is shown in figure below.</p>
+<center>
+<p><img
+src="https://raw.githubusercontent.com/aimsir-spoirt/aimsir-spoirt.github.io/main/post4_FootballGPS_files/figure-html/test_reflection_pitch.png"
+style="width:75.0%" /></p>
+</center>
+<p>As I quickly learned, GPS measurements from the watch were far from
+precise. This is a well known phenomenon in academic literature (<a
+href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0220729">1</a>,
+<a
+href="https://journals.sagepub.com/doi/abs/10.1177/17543371221098888">2</a>,
+<a
+href="https://link.springer.com/article/10.1007/s40279-020-01399-1">3</a>).
+The GPS data for a single match on the 16th August 2023 are shown in the
+figure below. As you can see, many values lie outside the boundary of
+the pitch. By considering a large enough sample of data, the hope is
+that the signal will emerge from the noisy nature of each individual
+match and some useful results can be gotten from the data.</p>
+<center>
+<p><img
+src="https://raw.githubusercontent.com/aimsir-spoirt/aimsir-spoirt.github.io/main/post4_FootballGPS_files/figure-html/wholeGame_pitch.png"
+style="width:75.0%" /></p>
+</center>
+</div>
+</div>
+<div id="results" class="section level3">
+<h3>Results</h3>
+<div id="total-distance" class="section level4">
+<h4>Total distance</h4>
+<p>The average total distance (coverted into km per 60mins to account
+for varying game length) is shown below as boxplots, split by year. The
+average distance covered has not varied significantly over the 5 years,
+generally in the region of 3.0-3.5 km per 60 mins. I have tried to
+consciously cover more ground during the games, but this appears to be
+the ballpark figure that I land on based on my athletic profile and the
+pitch dimensions.</p>
+<p><img src="post4_FootballGPS_files/figure-html/dist_box-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="field-positions" class="section level4">
+<h4>Field Positions</h4>
+<p>The frequency with which I occupied a given zone on the pitch is
+shown in figure 5. My defensive nature is evident in the plot with my
+tendency to occupy central defensive zones, trying to make best of use
+of the skills that I have that can positively impact on my team’s chance
+of winning. Unsurprisingly, I am seldomly found in the attacking half of
+the pitch. Although due to the small nature of the playing area, I do
+have non-zero frequencies for all zones on the pitch.</p>
+<center>
+<p><img
+src="https://raw.githubusercontent.com/aimsir-spoirt/aimsir-spoirt.github.io/main/post4_FootballGPS_files/figure-html/zone_heatmap.png"
+style="width:75.0%" /></p>
+</center>
+</div>
+<div id="heart-rate" class="section level4">
+<h4>Heart Rate</h4>
+<p>The distribution of heart rate data for the entire dataset is shown
+in figure 6. As well as being an enjoyable pastime, I also try to use
+these games as a Zone 4/5 cardio session. There are a variety of ways to
+potentially define different heart rate zones. Garmin estimates the
+lower bound of Z4 to be 154bpm. Meanwhile omnicalculator.com has a
+variety of methods to estimate heart rate zones. These uses max heart
+rate and resting heart rate as inputs to the formula. Max heart rate can
+either be taken from the data (giving a Z4 HR of 157bpm), or estimated
+using a formula such as “Oakland nonlinear formula” (giving a Z4 HR of
+160bpm). I have taken the highest of these values (160bpm) and plotted
+that as the dashed vertical line in the histogram in figure 6.</p>
+<p><img src="post4_FootballGPS_files/figure-html/hr_hist-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>I have tried to optimise time spent in those high heart rate zones,
+as this is generally viewed as being beneficial for cardiovascular
+health. But there is a clear visual anomaly that can’t be overlooked in
+the data. The data has a slightly strange bimodal distribution (two
+peaks in the histogram plot). A further peculiarity in the data was also
+found when boxplots were created for each month, shown below. Both the
+means(green trianglees)/medians(horizontal lines) and the inter-quartile
+ranges tend to be higher during the middle of the year (May-September)
+compared to the rest of the year.</p>
+<p><img src="post4_FootballGPS_files/figure-html/hr_box-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>To study this a little bit further. I plotted histograms where the
+data was split by both year and whether the month lies inside or outside
+the May-September month window, shown below. Data in the summertime
+period (orange) tends to have a much higher frequency of high heart rate
+values compared to the remainder of the year. Data for summer in 2019 is
+the one outlier, but I think this may be attributed to not wearing the
+watch tightly enough during the game in the first year of using the
+watch.</p>
+<p><img src="post4_FootballGPS_files/figure-html/hr_ys_hist-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The bimodal distribution is generally most apparent during the
+non-summer months (green, left in figure 8). I do not have any expertise
+in wrist-based heart rate sensors, but I have seen some experts in the
+area talk about the limitations of this methodology. One (very
+speculative) theory is that I have poor circulation to my hands (easily
+get numb hands during cold weather) and maybe this leads to less
+accurate measurements of my heart rate. One way to investigate this
+further, might be to get a chest-strap heart rate monitor and see if
+that improved the quality of the heart rate data.</p>
+<p>Broadly speaking, I do generally meet the objective of getting my
+heart rate elevated during the games, and it does appear to be doing a
+little bit better at accumulating time above my Z4 heart-rate threshold.
+Although my own confidence in the validity of these numbers is very
+low.</p>
+</div>
+<div id="running-speed" class="section level4">
+<h4>Running Speed</h4>
+<p>Another quantity measured by the watch is pace/speed. The histogram
+of speed (in m/s) is shown in the figure below. The speeds observed are
+far from being anything impressive, but I’ll use the excuse that the
+small pitch dimensions make high speed sprints less likely.</p>
+<p><img src="post4_FootballGPS_files/figure-html/speed_hist-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Also the most frequent observed speed turned out to 0 m/s. Before
+labeling myself as a lazy good-for-nothing that just stands around doing
+nothing, I looked at where on the pitch I tended to be stationary, shown
+in figure below. The vast majority of these cases occur in the 4 zones
+that are closest to my own goal-line, which probably represent my turns
+playinh in goal during the games. Apart from these, there are also some
+cases of being stationary in central areas around halfway as well.</p>
+<center>
+<img
+src="https://raw.githubusercontent.com/aimsir-spoirt/aimsir-spoirt.github.io/main/post4_FootballGPS_files/figure-html/zone_zero_speed.png"
+style="width:75.0%" />
+</center>
+</div>
+<div id="attempted-change-of-approach" class="section level4">
+<h4>Attempted change of approach</h4>
+<p>Those observations of zero speed in central areas, in figure 10,
+probably happen when my team has possession of the ball and I am sitting
+back in defence. This conservative style of play is not suited to
+playing on such a small pitch, where playing a position doesn’t really
+make sense. In the last couple of years I have tried to offer myself as
+more of an attacking outlet. To check if there was any evidence of this
+change in mindset. To do this, I calculated positional heatmaps (as in
+figure 5) for two different 2-year periods: 2019-2020 and 2022-2023. The
+difference between these two maps were then used to calculated
+percentage changes in my average position, figure 11.</p>
+<center>
+<img
+src="https://raw.githubusercontent.com/aimsir-spoirt/aimsir-spoirt.github.io/main/post4_FootballGPS_files/figure-html/zone_perc_diff.png"
+style="width:75.0%" />
+</center>
+<p>This change in approach is borne out in the data, where the red areas
+across almost all zones in the attacking half of the pitch show that I
+am spending more time there in recent years. The only place in the
+defensive half of the pitch that is red is actually close to the goal,
+which suggests that I have been spending more time on average in goal
+during the last two years compared to 2019-2020. Maybe I need to have a
+word with my colleagues about this…..</p>
+</div>
+</div>
+<div id="conclusions" class="section level3">
+<h3>Conclusions</h3>
+<p>Trying to use a GPS watch to record activities on such a small
+football pitch is riddled with inaccuracies. I hoped that by collecting
+a large enough dataset from multiple years some useful information can
+be found within the noisy data. All in all I think I did find some
+interesting results, but at the same time, all results shown here should
+really be taken with a substantial pinch of salt.</p>
+<p>The <a href="#heart-rate">Heart Rate</a> data are particularly
+dubious with a clear seasonal pattern to the observations, highlighting
+the limitations of using optical wrist-based HR measurements during
+intense activity (and variables environmental conditions). These may be
+exacerbated by my own physiological profile. It might be the case that
+getting myself a chest-strap HR monitor would be useful if I want to get
+more reliable heart-rate data from my 5-a-side games, but for the moment
+that is a low priority.</p>
+<p>In terms of GPS tracks, it was reassuring to see that my desire to
+adopt a more attacking style of play in the last two years could be seen
+in the data (see <a href="#attempted-change-of-approach">Attempted
+change of approach</a>). Meanwhile for GPS accuracy, many studies have
+highlighted the limitations of GPS devices for activities with lots of
+change of direction (<a
+href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0220729">1</a>,
+<a
+href="https://journals.sagepub.com/doi/abs/10.1177/17543371221098888">2</a>,
+<a
+href="https://link.springer.com/article/10.1007/s40279-020-01399-1">3</a>).
+That being said, my curiosity is still alive and well and I will
+continue to track the activities, as I enjoy doing and understand the
+limitations of the data. I will soon start recording my games with a
+Garmin Forerunner 255 watch. For this device, Garmin’s marketing and
+youtube reviewers (like <a
+href="https://www.youtube.com/watch?v=fJsPo2qMfX0">DesFit</a> and <a
+href="https://www.youtube.com/watch?v=wYJfVczBORQ">DC Rainmaker</a>)
+have suggested that the multi-band GPS system on newer watches has the
+potential to produce more accurate GPS tracks. In the making of this
+article I have also learned more about my old watch that I should’ve
+been aware of before. It turns out that the sampling rate for activities
+can be changed on the watch. Garmin offer two possible options: “smart”
+and “every second”, and my watch has been set to “smart” as default.
+Therefore I could have tracked these activities with about twice the
+temporal resolution and is something I will look into with my new watch
+as well. These activities are in the region of 1 hour in duration, so
+the added demand on battery life from the higher sampling rate would
+never be an issue. It will be interesting to see if these changes will
+offer any better insight in the years ahead.</p>
+</div>
+<div id="acknowledgments" class="section level3">
+<h3>Acknowledgments</h3>
+<p>Cyberjunky’s GarminConnect python library was crucial in extracting
+the data for this analysis.</p>
+</div>
+</div>
+
+&nbsp;
+<hr />
+<p style="text-align: center;">Produced by <a href="https://github.com/aimsir-spoirt/">Aimsir Spóirt</a></p>
+<p style="text-align: center;"><span style="color: #808080;"><em>(generated using R Markdown)</em></span></p>
+
+
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Add font awesome icons -->
+<p style="text-align: center;">
+    <a href="https://twitter.com/AimsirSpoirt" class="fa fa-twitter fa-3x"></a>
+    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley" class="fa fa-linkedin fa-3x"></a>
+    <a href="https://github.com/aimsir-spoirt/" class="fa fa-github fa-3x"></a>
+</p>
+
+&nbsp;
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
