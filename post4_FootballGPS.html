@@ -306,7 +306,7 @@ This is an analysis of 5 years of GPS watch data from 144 games of
 accuracy limitations of these sensors and captured a change in my style
 of play. As well as GPS data, the watch also collected heart rate and
 instantaneous speed/pace data which were analysed as well. This gives an
-overview of the main things I found while analysing the data.</p>
+overview of the main findings from analysing the data.</p>
 <div id="data-overview" class="section level3">
 <h3><strong>Data Overview</strong></h3>
 <div id="watch" class="section level4">
@@ -343,10 +343,11 @@ are (hopefully) fairly balanced in terms of ability.</p>
 pitch as a reference. I took the coordinates of the four corners of the
 pitch in latitude and longitude. These were then converted into the
 Irish Tranverse Mercator (ITM) coordinate system, which has units in
-metres, allowing for easier arithmetic with location data. For further
-analysis of the data, the pitch was then subdivided into a grid of 54
-squares of roughly 3m x 3m in size, which is shown below. The centre of
-the pitch is shown by a red dot, which will be used later.</p>
+metres, allowing for easier arithmetic with location data. The GPS data
+from the watch was also converted into ITM as well. For further analysis
+of the data, the pitch was then subdivided into a grid of 54 squares of
+roughly 3m x 3m, which are shown below. The centre of the pitch is shown
+by a red dot, which will be used later.</p>
 <center>
 <img
 src="https://raw.githubusercontent.com/aimsir-spoirt/aimsir-spoirt.github.io/main/post4_FootballGPS_files/figure-html/Pitch_Outline_UCD_cage.png"
@@ -363,8 +364,8 @@ Instead of considering the two directions in isolation, I decided to
 dust off my knowledge of Euclidean transformations and write some code
 to reflect data points through the centre point of the pitch (red dot in
 figure above). This turned every “left-to-right” game into a
-“right-to-left” game so that all games could be analysed together,
-making a total dataset of over 175,000 data points. An example of
+“right-to-left” game so that all games could be analysed together, which
+formed the total dataset of over 175,000 data points. An example of
 reflecting 11 data points is shown in figure below.</p>
 <center>
 <p><img
@@ -382,7 +383,7 @@ The GPS data for a single match on the 16th August 2023 are shown in the
 figure below. As you can see, many values lie outside the boundary of
 the pitch. By considering a large enough sample of data, the hope is
 that the signal will emerge from the noisy nature of each individual
-match and some useful results can be gotten from the data.</p>
+match and some useful results can be obtained from the data.</p>
 <center>
 <p><img
 src="https://raw.githubusercontent.com/aimsir-spoirt/aimsir-spoirt.github.io/main/post4_FootballGPS_files/figure-html/wholeGame_pitch.png"
@@ -406,12 +407,13 @@ pitch dimensions.</p>
 <div id="field-positions" class="section level4">
 <h4><strong>Field Positions</strong></h4>
 <p>The frequency with which I occupied a given zone on the pitch is
-shown in the plot below. My defensive nature is evident in the plot with
-my tendency to occupy central defensive zones, trying to make best of
-use of the skills that I have that can positively impact on my team’s
-chance of winning. Unsurprisingly, I am seldom found in the attacking
-half of the pitch. Although due to the small nature of the playing area,
-I do have non-zero frequencies for all zones on the pitch.</p>
+shown in the plot below. This was done by assigning each data point to a
+given zone and calculating the relative frequency of occupying each
+zone. My defensive nature is evident in the plot with my tendency to
+occupy central defensive zones (yellow colours in the plot).
+Unsurprisingly, I am seldom found in the attacking half of the pitch.
+Although due to the small nature of the playing area, I do have non-zero
+frequencies for all zones on the pitch.</p>
 <center>
 <p><img
 src="https://raw.githubusercontent.com/aimsir-spoirt/aimsir-spoirt.github.io/main/post4_FootballGPS_files/figure-html/zone_heatmap.png"
@@ -424,27 +426,28 @@ style="width:75.0%" /></p>
 in the graph below. As well as being an enjoyable pastime, I also try to
 use these football games as a Zone 4/5 cardio session. There are a
 variety of ways to potentially define different heart rate zones. Garmin
-estimates the lower bound of Z4 to be 154bpm. Meanwhile
-omnicalculator.com has a variety of methods to estimate heart rate
-zones. These uses max heart rate and resting heart rate as inputs to the
-formula. Max heart rate can either be taken from the data (giving a Z4
-HR of 157bpm), or estimated using a formula such as “Oakland nonlinear
-formula” (giving a Z4 HR of 160bpm). I have taken the highest of these
-values (160bpm) and plotted that as the dashed vertical line in the
-histogram in the histogram plot.</p>
+estimates the lower bound of Z4 to be 154bpm. Meanwhile <a
+href="https://www.omnicalculator.com/sports/heart-rate-zone">omnicalculator.com</a>
+has a variety of methods to estimate heart rate zones. These uses max
+heart rate and resting heart rate as inputs to the formula. Max heart
+rate can either be taken from the watch data directly (giving a Z4 HR of
+160bpm), or estimated using an age-based formula such as “Oakland
+nonlinear formula” (giving a Z4 HR of 157bpm). I have taken the highest
+of these values (160bpm) and plotted that as the dashed vertical line in
+the histogram in the histogram plot.</p>
 <p><img src="post4_FootballGPS_files/figure-html/hr_hist-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>I have tried to optimise time spent in those high heart rate zones,
 as this is generally viewed as being beneficial for cardiovascular
-health. But there is a clear visual anomaly that can’t be overlooked in
-the data. The data has a slightly strange bimodal distribution (two
+health. But there is a clear visual anomaly in the data that can’t be
+overlooked. The data has a slightly strange bimodal distribution (two
 peaks in the histogram plot). A further peculiarity in the data was also
 found when boxplots were created for each month, shown below. Both the
 means(green trianglees)/medians(horizontal lines) and the inter-quartile
-ranges tend to be higher during the middle of the year (May-September)
-compared to the rest of the year.</p>
+ranges (boxes) tend to be higher during the middle of the year
+(May-September) compared to the rest of the year.</p>
 <p><img src="post4_FootballGPS_files/figure-html/hr_box-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>To study this a little bit further. I plotted histograms where the
-data was split by both year and whether the month lies inside or outside
+data was split by both year and whether the month lay inside or outside
 the May-September month window, shown below. Data in the summertime
 period (orange) tends to have a much higher frequency of high heart rate
 values compared to the remainder of the year. Data for summer in 2019 is
