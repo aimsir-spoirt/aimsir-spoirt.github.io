@@ -423,37 +423,40 @@ style="width:75.0%" /></p>
 <div id="heart-rate" class="section level4">
 <h4><strong>Heart Rate</strong></h4>
 <p>The distribution of heart rate data for the entire dataset is shown
-in the graph below. As well as being an enjoyable pastime, I also try to
-use these football games as a Zone 4/5 cardio session. There are a
-variety of ways to potentially define different heart rate zones. Garmin
-estimates the lower bound of Z4 to be 154bpm. Meanwhile <a
+in the histogram plot below. As well as being an enjoyable pastime for
+me, I also try to use these football games as a Zone 4/5 high-intensity
+session. There are a variety of ways to potentially define the different
+heart rate zones. Garmin offers its own zones and estimates the lower
+bound of Z4 to be 154bpm. Meanwhile <a
 href="https://www.omnicalculator.com/sports/heart-rate-zone">omnicalculator.com</a>
 has a variety of methods to estimate heart rate zones. These uses max
 heart rate and resting heart rate as inputs to the formula. Max heart
 rate can either be taken from the watch data directly (giving a Z4 HR of
 160bpm), or estimated using an age-based formula such as “Oakland
 nonlinear formula” (giving a Z4 HR of 157bpm). I have taken the highest
-of these values (160bpm) and plotted that as the dashed vertical line in
-the histogram in the histogram plot.</p>
+of these values (160bpm) and is plotted as the dashed vertical line in
+the histogram plots in this section.</p>
 <p><img src="post4_FootballGPS_files/figure-html/hr_hist-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>I have tried to optimise time spent in those high heart rate zones,
-as this is generally viewed as being beneficial for cardiovascular
-health. But there is a clear visual anomaly in the data that can’t be
-overlooked. The data has a slightly strange bimodal distribution (two
-peaks in the histogram plot). A further peculiarity in the data was also
-found when boxplots were created for each month, shown below. Both the
-means(green trianglees)/medians(horizontal lines) and the inter-quartile
-ranges (boxes) tend to be higher during the middle of the year
-(May-September) compared to the rest of the year.</p>
+<p>I have tried to increase the time spent in those high heart rate
+zones, as this is generally viewed as being beneficial for
+cardiovascular health. But there is a clear visual anomaly in the
+histogram above that can’t be overlooked. The data has a slightly
+strange bimodal distribution (two peaks in the histogram plot). A
+further peculiarity in the data was also found when boxplots were
+created for each month, shown below. Both the means(green
+triangles)/medians(horizontal lines) and the inter-quartile ranges
+(boxes) tend to be higher during the middle of the year (May-September)
+compared to the rest of the year.</p>
 <p><img src="post4_FootballGPS_files/figure-html/hr_box-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>To study this a little bit further. I plotted histograms where the
 data was split by both year and whether the month lay inside or outside
 the May-September month window, shown below. Data in the summertime
 period (orange) tends to have a much higher frequency of high heart rate
-values compared to the remainder of the year. Data for summer in 2019 is
-the one outlier, but I think this may be attributed to not wearing the
-watch tightly enough during the game in the first year of using the
-watch.</p>
+values compared to the remainder of the year. There is some indication
+of a greater amount of time spent in Zone 4/5 in the last two years.
+Data for summer in 2019 is the one outlier (top row, right column), but
+I think this may be attributed to not wearing the watch tightly enough
+during activities in the first year of using the watch.</p>
 <p><img src="post4_FootballGPS_files/figure-html/hr_ys_hist-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The bimodal distribution is generally most apparent during the
 non-summer months (green, left column in panel of histograms). I do not
@@ -464,11 +467,9 @@ hands (easily get numb hands during cold weather) and maybe this leads
 to less accurate measurements of my heart rate. One way to investigate
 this further, might be to get a chest-strap heart rate monitor and see
 if that improved the quality of the heart rate data.</p>
-<p>Broadly speaking, I do generally meet the objective of getting my
-heart rate elevated during the games, and it does appear to be doing a
-little bit better at accumulating time above my Z4 heart-rate threshold.
-Although my own confidence in the validity of these numbers is very
-low.</p>
+<p>Broadly speaking, I do appear to be doing a little bit better at
+accumulating time above my Z4 heart-rate threshold. Although my own
+confidence in the validity of these numbers is very low.</p>
 </div>
 <div id="running-speed" class="section level4">
 <h4><strong>Running Speed</strong></h4>
@@ -477,13 +478,14 @@ of speed (in m/s) is shown in the figure below. The speeds observed are
 far from being anything impressive, but I’ll use the excuse that the
 small pitch dimensions make high speed sprints less likely.</p>
 <p><img src="post4_FootballGPS_files/figure-html/speed_hist-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Also the most frequent observed speed turned out to 0 m/s. Before
-labeling myself as a lazy good-for-nothing that just stands around doing
-nothing, I looked at where on the pitch I tended to be stationary, shown
-in figure below. The vast majority of these cases occur in the 4 zones
-that are closest to my own goal-line, which probably represent my turns
-playinh in goal during the games. Apart from these, there are also some
-cases of being stationary in central areas around halfway as well.</p>
+<p>Furthermore, the most frequently observed speed turned out to 0 m/s
+(tallest bar in histogram). Before labeling myself as a lazy
+good-for-nothing that just stands around doing nothing, I looked at
+where on the pitch I tended to be stationary, shown in figure below. The
+vast majority of these cases occur in the 4 zones that are closest to my
+own goal-line, which probably represent my turns playing in goal during
+the games. Apart from these, there are also some cases of being
+stationary in central areas around halfway as well.</p>
 <center>
 <img
 src="https://raw.githubusercontent.com/aimsir-spoirt/aimsir-spoirt.github.io/main/post4_FootballGPS_files/figure-html/zone_zero_speed.png"
@@ -493,16 +495,16 @@ style="width:75.0%" />
 <div id="attempted-change-of-approach" class="section level4">
 <h4><strong>Attempted Change of Approach</strong></h4>
 <p>Those observations of zero speed in central areas, in the previous
-figure above, probably happen when my team has possession of the ball
-and I am sitting back in defence. This conservative style of play is not
-suited to playing on such a small pitch, where playing a position
-doesn’t really make sense. In the last couple of years I have tried to
-offer myself as more of an attacking outlet. To check if there was any
-evidence of this change in mindset. To do this, I calculated positional
-heatmaps (as in [Field Positions] section) for two different 2-year
-periods: 2019-2020 and 2022-2023. The difference between these two maps
-were then used to calculated percentage changes in my average position,
-shown below.</p>
+figure above, probably happen when my team has possession of the ball. I
+would typically sit back in defence and not get involved in attacks.
+This conservative style of play is not suited to playing on such a small
+pitch, where playing a position doesn’t really make sense. In the last
+couple of years I have tried to offer myself as more of an attacking
+outlet. I decided to check if there was any evidence of this change in
+mindset in the data. To do this, I calculated positional heatmaps (as in
+[Field Positions] section) for two different 2-year periods: 2019-2020
+and 2022-2023. The difference between these two maps were then used to
+calculated percentage changes in my average position, shown below.</p>
 <center>
 <img
 src="https://raw.githubusercontent.com/aimsir-spoirt/aimsir-spoirt.github.io/main/post4_FootballGPS_files/figure-html/zone_perc_diff.png"
