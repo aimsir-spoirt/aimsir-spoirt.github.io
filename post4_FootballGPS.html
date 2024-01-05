@@ -404,7 +404,7 @@ the ballpark figure that I land on based on my athletic profile and the
 pitch dimensions.</p>
 <p><img src="post4_FootballGPS_files/figure-html/dist_box-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="field-positions" class="section level4">
+<div id="custom_pos" class="section level4">
 <h4><strong>Field Positions</strong></h4>
 <p>The frequency with which I occupied a given zone on the pitch is
 shown in the plot below. This was done by assigning each data point to a
@@ -420,7 +420,7 @@ src="https://raw.githubusercontent.com/aimsir-spoirt/aimsir-spoirt.github.io/mai
 style="width:75.0%" /></p>
 </center>
 </div>
-<div id="heart-rate" class="section level4">
+<div id="custom_hr" class="section level4">
 <h4><strong>Heart Rate</strong></h4>
 <p>The distribution of heart rate data for the entire dataset is shown
 in the histogram plot below. As well as being an enjoyable pastime for
@@ -492,19 +492,21 @@ src="https://raw.githubusercontent.com/aimsir-spoirt/aimsir-spoirt.github.io/mai
 style="width:75.0%" />
 </center>
 </div>
-<div id="attempted-change-of-approach" class="section level4">
+<div id="delta_pos" class="section level4">
 <h4><strong>Attempted Change of Approach</strong></h4>
 <p>Those observations of zero speed in central areas, in the previous
-figure above, probably happen when my team has possession of the ball. I
-would typically sit back in defence and not get involved in attacks.
-This conservative style of play is not suited to playing on such a small
+figure above, were analysed a bit further. My theory was that they
+probably happened when my team had possession of the ball and I would
+typically sit back in defence rather than get involved in attacks. This
+conservative style of play is not suited to playing on such a small
 pitch, where playing a position doesn’t really make sense. In the last
 couple of years I have tried to offer myself as more of an attacking
 outlet. I decided to check if there was any evidence of this change in
 mindset in the data. To do this, I calculated positional heatmaps (as in
-[Field Positions] section) for two different 2-year periods: 2019-2020
-and 2022-2023. The difference between these two maps were then used to
-calculated percentage changes in my average position, shown below.</p>
+<a href="#custom_pos">Field Positions</a> section) for two different
+2-year periods: 2019-2020 and 2022-2023. The difference between these
+two maps were then used to calculated percentage changes in my average
+position, shown below.</p>
 <center>
 <img
 src="https://raw.githubusercontent.com/aimsir-spoirt/aimsir-spoirt.github.io/main/post4_FootballGPS_files/figure-html/zone_perc_diff.png"
@@ -527,19 +529,20 @@ a large enough dataset from multiple years some useful information can
 be found within the noisy data. All in all I think I did find some
 interesting results, but at the same time, all results shown here should
 really be taken with a substantial pinch of salt.</p>
-<p>The [Heart Rate] data are particularly dubious with a clear seasonal
-pattern to the observations, highlighting the limitations of using
-optical wrist-based HR measurements during intense activity (and
-variables environmental conditions). These may be exacerbated by my own
-physiological profile. It might be the case that getting myself a
-chest-strap HR monitor would be useful if I want to get more reliable
-heart-rate data from my 5-a-side games, but for the moment that is a low
-priority.</p>
+<p>The <a href="#custom_hr">Heart Rate</a> data are particularly dubious
+with a clear seasonal pattern to the observations, highlighting the
+limitations of using optical wrist-based HR measurements during intense
+activity (and variables environmental conditions). These may be
+exacerbated by my own physiological profile. It might be the case that
+getting myself a chest-strap HR monitor would be useful if I want to get
+more reliable heart-rate data from my 5-a-side games, but for the moment
+that is a low priority.</p>
 <p>In terms of GPS tracks, it was reassuring to see that my desire to
 adopt a more attacking style of play in the last two years could be seen
-in the data (see [Attempted change of approach]). Meanwhile for GPS
-accuracy, many studies have highlighted the limitations of GPS devices
-for activities with lots of change of direction (<a
+in the data (see <a href="#delta_pos">Attempted change of approach</a>).
+Meanwhile for GPS accuracy, many studies have highlighted the
+limitations of GPS devices for activities with lots of change of
+direction (<a
 href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0220729">1</a>,
 <a
 href="https://journals.sagepub.com/doi/abs/10.1177/17543371221098888">2</a>,
